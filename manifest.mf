@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
 X-COMMENT: Main-Class will be added automatically by build
-SplashScreen-Image: MedicalStoreMS_eProject_2nd_Sem/loading.gif
+SplashScreen-Image: MedicalStoreMS_eProject_2nd_Sem/loading2.gif
 
