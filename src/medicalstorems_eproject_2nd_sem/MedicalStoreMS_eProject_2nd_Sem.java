@@ -12,8 +12,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import utils.AAZAppUtils;
 import utils.ManageFiles;
 
 /**
@@ -22,19 +25,26 @@ import utils.ManageFiles;
  */
 public class MedicalStoreMS_eProject_2nd_Sem {
 
+    private static AAZAppUtils AAZAppUtils;
+
+    private static void InitAppComponents() {
+        AAZAppUtils = new AAZAppUtils();
+    }
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         AppSetup();
+
     }
 
     private static void AppSetup() {
         try {
+            InitAppComponents();
             String FileName = "AppSettings";
             File tempFile = new File(FileName + ".json");
             boolean exists = tempFile.exists();
-            System.out.println(exists);
             if (!exists) {
                 JSONObject DBConfig = new JSONObject();
                 DBConfig.put("DBServer", "kkkk");
@@ -54,10 +64,16 @@ public class MedicalStoreMS_eProject_2nd_Sem {
                 AppSettingsArray.add(AppSettings);
                 ManageFiles files = new ManageFiles();
                 if (files.writeFile(FileName, AppSettingsArray, ManageFiles.FileTypes.JSON)) {
-                    new LoginForm().setVisible(true);
+                    AAZAppUtils.OpenForm(new LoginForm(), 5000);
                 }
+            } else {
+                AAZAppUtils.OpenForm(new LoginForm(), 5000);
             }
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,
+                    "Error, something went wrong.",
+                    //                    ex.getMessage(),
+                    "Error", 0);
 //            Logger.getLogger(MedicalStoreMS_eProject_2nd_Sem.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
