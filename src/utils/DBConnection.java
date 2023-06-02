@@ -13,13 +13,13 @@ import javax.swing.JOptionPane;
  */
 public class DBConnection {
 
-    protected Connection con;
-    protected PreparedStatement preparedStatement;
+    public Connection Connect;
+    public PreparedStatement PreparedStatement;
 
     protected DBConnection() {
         try {
             String dbURL = "jdbc:sqlserver://" + AppConfig.DB_SERVER + ";encrypt=true;trustServerCertificate=true;database=" + AppConfig.DB_NAME + "";
-            con = DriverManager.getConnection(dbURL, AppConfig.DB_USER, AppConfig.DB_PASSWORD);
+            Connect = DriverManager.getConnection(dbURL, AppConfig.DB_USER, AppConfig.DB_PASSWORD);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,
                     "Error while connecting to database.",

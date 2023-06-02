@@ -4,13 +4,19 @@
  */
 package utils;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -22,7 +28,7 @@ public class ManageFiles {
         JSON, TEXT
     }
 
-    public boolean writeFile(String FileName, JSONArray content, FileTypes FileType) {
+    public boolean WriteFile(String FileName, JSONArray content, FileTypes FileType) {
         boolean isDone = false;
         try (FileWriter file = new FileWriter(FileName + (FileType.JSON.toString().toLowerCase().equals("json") ? ".json" : ".txt"))) {
             file.write(content.toJSONString());
@@ -34,34 +40,20 @@ public class ManageFiles {
         return isDone;
     }
 
-    public boolean readFile(String FileName, JSONArray content, FileTypes FileType) {
-        boolean isDone = false;
-        try (FileReader reader = new FileReader(FileName + (FileType.JSON.toString().toLowerCase().equals("json") ? ".json" : ".txt"))) {
-            JSONParser jsonParser = new JSONParser();
-            Object obj = jsonParser.parse(reader);
-            JSONArray employeeList = (JSONArray) obj;
-            employeeList.forEach(emp -> parseEmployeeObject((JSONObject) emp));
-            isDone = true;
-        } catch (Exception e) {
-            isDone = false;
+    public String ReadFile(String FileName, FileTypes FileType) {
+        String Data = "";
+        try {
+            String fileName = FileName + (FileType.JSON.toString().toLowerCase().equals("json") ? ".json" : ".txt");
+            File file = new File(fileName);
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                Data += line;
+            }
+        } catch (Exception ex) {
+            Data = null;
         }
-        return isDone;
-    }
-
-    private static void parseEmployeeObject(JSONObject json) {
-        //Get json object within list
-        JSONObject employeeObject = (JSONObject) json.get("employee");
-
-        //Get employee first name
-        String firstName = (String) employeeObject.get("firstName");
-        System.out.println(firstName);
-
-        //Get employee last name
-        String lastName = (String) employeeObject.get("lastName");
-        System.out.println(lastName);
-
-        //Get employee website name
-        String website = (String) employeeObject.get("website");
-        System.out.println(website);
+        return Data;
     }
 }

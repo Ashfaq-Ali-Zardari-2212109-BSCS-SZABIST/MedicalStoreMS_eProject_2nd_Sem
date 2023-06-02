@@ -14,18 +14,23 @@ import models.UserModel;
  */
 public class UserDAO extends absUser {
 
-    private DBConnection db;
+    private DBConnection DB;
 
     @Override
     public UserModel Login(String Username, String Password) {
-        UserModel user = null;
-
-        return user;
+        UserModel User = null;
+        if (Username.equals("") || Password.equals("")) {
+            return User;
+        }
+        
+        return User;
     }
 
     @Override
     public boolean Logout() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        boolean IsLoggedIn = false;
+
+        return IsLoggedIn;
     }
 
 }

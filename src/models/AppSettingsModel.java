@@ -17,9 +17,9 @@ Root[] root = om.readValue(myJsonString, Root[].class); */
 public class AppSettingsModel {
 public class AppSettings {
 
-    public String Owner;
-    public String AppLicenseKey;
     public String AppName;
+    public String AppOwner;
+    public String AppLicenseKey;
 }
 
 public class DBSettings {
@@ -29,6 +29,6 @@ public class DBSettings {
     public String DBName;
     public String DBUser;
 }
-    public DBSettings dBSettings;
-    public AppSettings appSettings;
+    public DBSettings DBSettings;
+    public AppSettings AppSettings;
 }
